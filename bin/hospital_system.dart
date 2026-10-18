@@ -10,6 +10,7 @@ import 'package:hospital_system/room.dart';
 import 'package:hospital_system/staff/doctor.dart';
 import 'package:hospital_system/staff/nurse.dart';
 import 'package:hospital_system/staff/staff.dart';
+import 'package:hospital_system/person.dart';
 
 class Demo with Loggable {
   void step(String title) => log('=== $title');
@@ -55,22 +56,26 @@ void main() {
     baseSalary: 15000,
     workingDays: [Days.sunday, Days.monday, Days.tuesday, Days.wednesday],
     department: 'Cardiology',
-    name: 'Dr. Hassan',
-    phone: '01000000001',
-    gender: Gender.male,
-    birthDate: birth,
+    person: Person(
+      name: 'Dr. Hassan',
+      phone: '01000001111',
+      gender: Gender.male,
+      birthDate: birth,
+    ),
   );
   final sara = Doctor(
-    specialization: Specialization.pediatrics,
-    consultationFee: 300,
+    specialization: Specialization.cardiology,
+    consultationFee: 400,
     maxDailyAppointments: 10,
-    baseSalary: 14000,
-    workingDays: [Days.monday, Days.tuesday, Days.wednesday, Days.thursday],
-    department: 'Pediatrics',
-    name: 'Dr. Sara',
-    phone: '01000000002',
-    gender: Gender.female,
-    birthDate: birth,
+    baseSalary: 15000,
+    workingDays: [Days.sunday, Days.monday, Days.tuesday, Days.wednesday],
+    department: 'Cardiology',
+    person: Person(
+      name: 'Dr. Sara',
+      phone: '01000000003',
+      gender: Gender.female,
+      birthDate: birth,
+    ),
   );
   final mai = Nurse(
     shift: Shift.night,
@@ -78,10 +83,12 @@ void main() {
     baseSalary: 6000,
     workingDays: [Days.sunday, Days.monday, Days.tuesday],
     department: 'Nursing',
-    name: 'Nurse Mai',
-    phone: '01000000003',
-    gender: Gender.female,
-    birthDate: birth,
+    person: Person(
+      name: 'Nurse Mai',
+      phone: '01000000005',
+      gender: Gender.female,
+      birthDate: birth,
+    ),
   );
   hospital.addStaff(hassan);
   hospital.addStaff(sara);
@@ -91,17 +98,21 @@ void main() {
   demo.step('3. Register patients');
   final ahmed = OutPatient(
     bloodType: BloodType.aPositive,
-    name: 'Ahmed',
-    phone: '01100000001',
-    gender: Gender.male,
-    birthDate: birth,
+    person: Person(
+      name: 'Ahmed',
+      phone: '01000000101',
+      gender: Gender.male,
+      birthDate: birth,
+    ),
   );
   final mohamed = InPatient(
     bloodType: BloodType.oPositive,
-    name: 'Mohamed',
-    phone: '01100000002',
-    gender: Gender.male,
-    birthDate: birth,
+    person: Person(
+      name: 'Mohamed',
+      phone: '01000000002',
+      gender: Gender.male,
+      birthDate: birth,
+    ),
   )
     ..insuranceCompany = 'Misr Insurance'
     ..coveragePercent = 60;
@@ -109,18 +120,22 @@ void main() {
     severityLevel: SeverityLevel.level5,
     doctor: hassan,
     bloodType: BloodType.bNegative,
-    name: 'Khaled',
-    phone: '01100000003',
-    gender: Gender.male,
-    birthDate: birth,
+    person: Person(
+      name: 'Khaled',
+      phone: '01000000091',
+      gender: Gender.male,
+      birthDate: birth,
+    ),
   );
 
   final omar = OutPatient(
     bloodType: BloodType.abPositive,
-    name: 'Omar',
-    phone: '01100000004',
-    gender: Gender.male,
-    birthDate: birth,
+    person: Person(
+      name: 'Omar',
+      phone: '01100000004',
+      gender: Gender.male,
+      birthDate: birth,
+    ),
   );
   for (final p in [ahmed, mohamed, khaled, omar]) {
     hospital.registerPatient(p);
@@ -132,7 +147,6 @@ void main() {
   final ahmedAppointment = hospital.appointments.last;
   demo.log('Booked: $monday10');
 
-  
   demo.step('5. Another patient books the same slot');
   demo.expectError(
     'Omar -> Dr. Hassan Monday 10:00',
@@ -180,7 +194,7 @@ void main() {
   demo.expectError('Pay 0', () => bill.pay(0));
   bill.pay(500);
   demo.log('Paid 500 -> status: ${bill.status.name}, remaining: ${bill.remainingAmount}');
-  bill.pay(bill.remainingAmount); 
+  bill.pay(bill.remainingAmount);
   demo.log('Paid the rest -> status: ${bill.status.name}');
   hospital.dischargePatient(mohamed, date: dischargeDate);
   demo.log('Mohamed discharged');

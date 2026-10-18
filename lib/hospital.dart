@@ -25,11 +25,17 @@ class Hospital {
      bills=[];
 
   void registerPatient(Patient patient){
-   if(patients.contains(patient))
-   {throw Exception("this patient is already exit");}
+   for(Patient p in patients )
+   {if(p.id==patient.id|| p.phone==patient.phone){
+    throw Exception("this patient is already exit");
+   }}
     patients.add(patient);
   }
   void addStaff(Staff hospitalStaff){
+    for(Staff s in staff )
+   {if(s.id==hospitalStaff.id|| s.phone==hospitalStaff.phone){
+    throw Exception("this doctor is already exit");
+   }}
    if(staff.contains(hospitalStaff))
    {throw Exception("this Staff is already exit");}
     staff.add(hospitalStaff);
@@ -109,6 +115,7 @@ void displayReport({DateTime? date}) {
   final today = date ?? DateTime.now();
   final doctors = staff.whereType<Doctor>().toList();
   final occupiedRooms = rooms.where((r) => r.isOccupied).toList();
+
   final todayAppointments = appointments
       .where((a) =>
           a.status != AppointmentStatus.cancelled &&
@@ -117,6 +124,7 @@ void displayReport({DateTime? date}) {
           a.dateTime.day == today.day)
       .toList()
     ..sort((a, b) => a.dateTime.compareTo(b.dateTime));
+
   final unpaidBills =
       bills.where((b) => b.status != PaymentStatus.paid).toList();
   final totalUnpaid = unpaidBills.fold(0.0, (sum, b) => sum + b.remainingAmount);

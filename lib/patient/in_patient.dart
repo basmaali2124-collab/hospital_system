@@ -11,11 +11,8 @@ class InPatient extends Patient with Insurable {
   final List<Item> _services = [];
 
   InPatient({
+    required super.person,
     required super.bloodType,
-    required super.name,
-    required super.phone,
-    required super.gender,
-    required super.birthDate,
   });
 
   Room? get room => _room;
@@ -27,7 +24,7 @@ class InPatient extends Patient with Insurable {
   void addService(Item service) => _services.add(service);
 
   void admit(Room room, DateTime date) {
-    room.occupy(this); 
+    room.occupy(this);
     _room = room;
     _admissionDate = date;
     _dischargeDate = null;

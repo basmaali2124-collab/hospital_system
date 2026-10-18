@@ -1,7 +1,6 @@
 import 'package:hospital_system/billable.dart';
 import 'package:hospital_system/enums.dart';
 import 'package:hospital_system/exceptions.dart';
-import 'package:hospital_system/insureable.dart';
 import 'package:hospital_system/patient/patient.dart';
 import 'package:hospital_system/validation_helper.dart';
 

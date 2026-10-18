@@ -3,17 +3,13 @@ import 'package:hospital_system/staff/doctor.dart';
 
 class OutPatient extends Patient {
   int visitCount;
-  Doctor? _doctor; 
+  Doctor? _doctor;
+
   OutPatient({
     this.visitCount = 0,
+    required super.person,
     required super.bloodType,
-    required super.name,
-    required super.phone,
-    required super.gender,
-    required super.birthDate,
-  }) ;
-
- 
+  });
 
   void registerVisit(Doctor doctor) {
     _doctor = doctor;

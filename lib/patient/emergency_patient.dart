@@ -9,11 +9,8 @@ class EmergencyPatient extends Patient {
   EmergencyPatient({
     required SeverityLevel severityLevel,
     required Doctor doctor,
+    required super.person,
     required super.bloodType,
-    required super.name,
-    required super.phone,
-    required super.gender,
-    required super.birthDate,
   })  : _severityLevel = severityLevel,
         _doctor = doctor;
 
@@ -28,7 +25,7 @@ class EmergencyPatient extends Patient {
   void registerVisit(Doctor doctor) => _doctor = doctor;
 
   @override
-  double calculateBill({DateTime? date}) => _doctor.consultationFee * 1.5; // +50%
+  double calculateBill({DateTime? date}) => _doctor.consultationFee * 1.5; 
 
   @override
   void displayInfo() {
